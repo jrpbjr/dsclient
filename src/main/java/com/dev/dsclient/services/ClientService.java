@@ -1,7 +1,7 @@
 package com.dev.dsclient.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +21,11 @@ public class ClientService {
 	public List<ClientDTO> findAll(){
 		List<Client> list =repository.findAll();
 		/*
-		 * converter a lista de categoria para uma lista de categoria DTO
+		 * converter a lista de categoria para uma lista de categoria DTO com for ou expressão Lambda
 		 */
-		List<ClientDTO> listDto = new ArrayList<>();
-		for(Client clie : list) {
-			listDto.add(new ClientDTO(clie));
-		}
+		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 		
-		return listDto;
+		 
 		
 	}
 
