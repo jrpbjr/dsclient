@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dev.dsclient.dto.ClientDTO;
 import com.dev.dsclient.entities.Client;
 import com.dev.dsclient.repositories.ClientRepository;
+import com.dev.dsclient.services.exceptions.EntityNotFoundException;
 
 @Service
 public class ClientService {
@@ -25,14 +26,13 @@ public class ClientService {
 		 * converter a lista de categoria para uma lista de categoria DTO com for ou expressão Lambda
 		 */
 		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
-		
 		 
 		
 	}
 
 	public ClientDTO findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
-		Client entity = obj.get();
+		Client entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 		return new ClientDTO(entity);
 	}
 

@@ -1,4 +1,4 @@
-package com.dev.dsclient.resource;
+package com.dev.dsclient.resources;
 
 import java.util.List;
 
